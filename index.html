@@ -4,9 +4,63 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <title>Agnes</title>
 </head>
 <body>
   <h2>Hi, I am Agnes.</h2>
+  <div id="context"></div>
+  <div id="profile"></div>
 </body>
+<script>
+var liffID = '1657816678-RogZdnMQ';
+
+liff.init({
+  liffId: liffID
+}).then(function() {
+  console.log('LIFF init');
+  
+  // 這邊開始寫使用其他功能
+  // 引用 LIFF SDK 的頁面，頁面中的 lang 值
+  liff.getLanguage();
+
+  // LIFF SDK 的版本
+  liff.getVersion();
+
+  // 回傳是否由 LINE App 存取
+  liff.isInClient();
+
+  // 使用者是否登入 LINE 帳號
+  liff.isLoggedIn();
+
+  // 回傳使用者作業系統：ios、android、web
+  liff.getOS();
+
+  // 使用者的 LINE 版本
+  liff.getLineVersion();
+  liff.getContext();
+  liff.getProfile()
+  var context = liff.getContext();
+  console.log(context);
+  document.querySelector("#context").innerText = context
+
+// 取得使用者公開資料
+// 後台的「Scopes」要設定開啟 profile, openid
+  liff.getProfile()
+      .then(function(profile) {
+        console.log(profile);
+        document.querySelector("#profile").innerText = profile
+      });
+
+  // 取得使用者 email
+  // 後台的 Email address permission 要是「Applied」
+  // LIFF 的設定，Scopes 的「email*」要打勾
+  // 使用者在登入時，「電子郵件帳號」也要是「許可」的
+  var user = liff.getDecodedIDToken();
+  var email = user.email;
+  console.log(email);
+}).catch(function(error) {
+  console.log(error);
+});
+</script>
 </html>
