@@ -9,10 +9,15 @@
 </head>
 <body>
   <h2>Hi, I am Agnes.</h2>
+  Hi,<span id="displayName"></span>
+  <input type="text" id="email">
   <p>context</p>
   <div id="context"></div>
   <p>profile</p>
   <div id="profile"></div>
+  <p>
+    <span id></span>
+  </p>
 </body>
 <script>
 var liffID = '1657816678-RogZdnMQ';
@@ -51,6 +56,7 @@ liff.init({
   liff.getProfile()
       .then(function(profile) {
         console.log(profile);
+        document.querySelector("#displayName").innerText = JSON.stringify(profile.dissplayName)
         document.querySelector("#profile").innerText = JSON.stringify(profile)
       });
 
@@ -60,6 +66,7 @@ liff.init({
   // 使用者在登入時，「電子郵件帳號」也要是「許可」的
   var user = liff.getDecodedIDToken();
   var email = user.email;
+  document.querySelector("#email").value = email
   console.log(email);
 }).catch(function(error) {
   console.log(error);
