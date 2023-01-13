@@ -44,14 +44,14 @@ liff.init({
   liff.getProfile()
   var context = liff.getContext();
   console.log(context);
-  document.querySelector("#context").innerText = context
+  document.querySelector("#context").innerText = JSON.parse(context)
 
 // 取得使用者公開資料
 // 後台的「Scopes」要設定開啟 profile, openid
   liff.getProfile()
       .then(function(profile) {
         console.log(profile);
-        document.querySelector("#profile").innerText = profile
+        document.querySelector("#profile").innerText = JSON.parse(profile)
       });
 
   // 取得使用者 email
